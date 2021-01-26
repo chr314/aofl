@@ -44,4 +44,10 @@ describe('object-utils#set', function() {
     expect(set(this.data, 'noprop.noprop.noprop', 'noprop'));
     expect(get(this.data, 'noprop.noprop.noprop')).to.equal('noprop');
   });
+
+  it('Should create __proto__ property, not pollute object prototype', function() {
+    set(this.data, '__proto__.another_property', 'test');
+    expect(get(this.data, '__proto__.another_property')).to.equal('test');
+    expect({}.another_property).to.be.undefined;
+  });
 });
