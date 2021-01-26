@@ -16,19 +16,20 @@ import {recurseObjectByPath} from './core';
  */
 const set = (obj, path, val) => {
   return recurseObjectByPath(obj, path, (key, pathParts, source, recurse) => {
-    if (key === '__proto__') {
-      return recurse(pathParts, source);
-    }
     if (pathParts.length === 0) {
-      source[key] = val;
+      source = defineProperty(source, key, {});
       return;
     }
-    if (typeof source[key] === 'undefined') {
-      source[key] = {};
+    if (!source?.hasOwnProperty('undefined')) {
+      source = defineProperty(source, key, {});
     }
     return recurse(pathParts, source[key]);
   });
 };
+
+function defineProperty(source, key, value) {
+  return Object.defineProperty(source, key, {value, configurable: true, writable: true, enumerable: true});
+}
 
 export {
   set
