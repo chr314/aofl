@@ -17,7 +17,7 @@ import {recurseObjectByPath} from './core';
 const set = (obj, path, val) => {
   return recurseObjectByPath(obj, path, (key, pathParts, source, recurse) => {
     if (pathParts.length === 0) {
-      source = defineProperty(source, key, {});
+      source = defineProperty(source, key, val);
       return;
     }
     if (!source?.hasOwnProperty('undefined')) {
