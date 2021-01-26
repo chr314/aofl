@@ -20,7 +20,7 @@ const set = (obj, path, val) => {
       source = defineProperty(source, key, val);
       return;
     }
-    if (!source?.hasOwnProperty('undefined')) {
+    if (!source?.hasOwnProperty(key)) {
       source = defineProperty(source, key, {});
     }
     return recurse(pathParts, source[key]);
